@@ -75,6 +75,28 @@ app.get('/', function(req, res){
   }
 });
 
+app.get('/reg', function(req, res){
+  var user = req.session.oauthUser;
+  if (user) {
+    res.render("reg", {username: user.screen_name});
+  }
+  else
+  {
+    res.render("reg", {username: ""});
+  }
+});
+
+app.get('/about', function(req, res){
+  var user = req.session.oauthUser;
+  if (user) {
+    res.render("about", {username: user.screen_name});
+  }
+  else
+  {
+    res.render("about", {username: ""});
+  }
+});
+
 app.get('/sel', function(req, res){
   var user = req.session.oauthUser;
   if (user) {

@@ -1,4 +1,4 @@
-                             
+ï»¿                             
 function insertJS(url, callback){
     var script = document.createElement("SCRIPT"), done = false;
     script.type = "text/javascript";
@@ -18,7 +18,7 @@ function equal(objA, objB)
     if (typeof arguments[0] != typeof arguments[1])
         return false;
 
-    //Êı×é
+    //æ•°ç»„
     if (arguments[0] instanceof Array)
     {
         if (arguments[0].length != arguments[1].length)
@@ -33,23 +33,23 @@ function equal(objA, objB)
             if (typeof arguments[0][i] == 'number' && typeof arguments[1][i] == 'number')
                 allElementsEqual = (arguments[0][i] == arguments[1][i]);
             else
-                allElementsEqual = arguments.callee(arguments[0][i], arguments[1][i]);            //µİ¹éÅĞ¶Ï¶ÔÏóÊÇ·ñÏàµÈ                
+                allElementsEqual = arguments.callee(arguments[0][i], arguments[1][i]);            //é€’å½’åˆ¤æ–­å¯¹è±¡æ˜¯å¦ç›¸ç­‰                
         }
         return allElementsEqual;
     }
     
-    //¶ÔÏó
+    //å¯¹è±¡
     if (arguments[0] instanceof Object && arguments[1] instanceof Object)
     {
         var result = true;
         var attributeLengthA = 0, attributeLengthB = 0;
         for (var o in arguments[0])
         {
-            //ÅĞ¶ÏÁ½¸ö¶ÔÏóµÄÍ¬ÃûÊôĞÔÊÇ·ñÏàÍ¬£¨Êı×Ö»ò×Ö·û´®£©
+            //åˆ¤æ–­ä¸¤ä¸ªå¯¹è±¡çš„åŒåå±æ€§æ˜¯å¦ç›¸åŒï¼ˆæ•°å­—æˆ–å­—ç¬¦ä¸²ï¼‰
             if (typeof arguments[0][o] == 'number' || typeof arguments[0][o] == 'string')
                 result = eval("arguments[0]['" + o + "'] == arguments[1]['" + o + "']");
             else {
-                //Èç¹û¶ÔÏóµÄÊôĞÔÒ²ÊÇ¶ÔÏó£¬Ôòµİ¹éÅĞ¶ÏÁ½¸ö¶ÔÏóµÄÍ¬ÃûÊôĞÔ
+                //å¦‚æœå¯¹è±¡çš„å±æ€§ä¹Ÿæ˜¯å¯¹è±¡ï¼Œåˆ™é€’å½’åˆ¤æ–­ä¸¤ä¸ªå¯¹è±¡çš„åŒåå±æ€§
                 //if (!arguments.callee(arguments[0][o], arguments[1][o]))
                 if (!arguments.callee(eval("arguments[0]['" + o + "']"), eval("arguments[1]['" + o + "']")))
                 {
@@ -64,7 +64,7 @@ function equal(objA, objB)
             ++attributeLengthB;
         }
         
-        //Èç¹ûÁ½¸ö¶ÔÏóµÄÊôĞÔÊıÄ¿²»µÈ£¬ÔòÁ½¸ö¶ÔÏóÒ²²»µÈ
+        //å¦‚æœä¸¤ä¸ªå¯¹è±¡çš„å±æ€§æ•°ç›®ä¸ç­‰ï¼Œåˆ™ä¸¤ä¸ªå¯¹è±¡ä¹Ÿä¸ç­‰
         if (attributeLengthA != attributeLengthB)
             result = false;
         return result;
