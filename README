@@ -1,0 +1,4 @@
+o2o in appfog
+
+to run
+$ /usr/local/bin/node server.js
