@@ -8,7 +8,8 @@ PORT = process.env.VMC_APP_PORT || 8001;
 var connect = require('connect');
 var weibo = require('weibo');
 var express = require('express'),
-    ejs = require("ejs");
+    ejs = require("ejs"),
+    partials = require('express-partials');
 var app = express();
 
 /**
@@ -24,9 +25,9 @@ weibo.init('weibo', '2815523970', '3569f362e65a2d44b23e873ec0d608f2');
  // 定义共享环境
 app.configure(function(){
     app.set("views", __dirname + "/views");   
-    app.set("view engine", "html");   
-    app.engine("html", ejs.renderFile);   
-    app.set("view options", {layout: false});
+    app.set("view engine", "ejs");   
+    app.set("view options", {layout: true});
+    app.use(partials());
 
     app.use(express.bodyParser());    
     app.use(express.cookieParser('o2o_cookie_secret'));
@@ -65,13 +66,23 @@ app.configure('production', function(){
 
 app.get('/', function(req, res){
   var user = req.session.oauthUser;
-  console.log(user);
   if (user) {
-    res.render("index.html", {username: user.screen_name});
+    res.render("index", {username: user.screen_name});
   }
   else
   {
-    res.render("index.html", {username: ""});
+    res.render("index", {username: ""});
+  }
+});
+
+app.get('/sel', function(req, res){
+  var user = req.session.oauthUser;
+  if (user) {
+    res.render("selstock", {username: user.screen_name});
+  }
+  else
+  {
+    res.render("selstock", {username: ""});
   }
 });
 
