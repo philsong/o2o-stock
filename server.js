@@ -7,7 +7,8 @@ PORT = process.env.VMC_APP_PORT || 8001;
 
 var connect = require('connect');
 var weibo = require('weibo');
-var express = require('express');
+var express = require('express'),
+    ejs = require("ejs");
 var app = express();
 
 /**
@@ -15,9 +16,6 @@ var app = express();
  */ 
 
 weibo.init('weibo', '2815523970', '3569f362e65a2d44b23e873ec0d608f2');
-//weibo.init('github', '8e14edfda73a71f1f226', '1796ac639a8ada0dff6acfee2d63390440ca0f3b');
-//weibo.init('tqq', '801196838', '9f1a88caa8709de7dccbe3cae4bdc962');
-
 
 /**
  * Create a web application.
@@ -25,17 +23,18 @@ weibo.init('weibo', '2815523970', '3569f362e65a2d44b23e873ec0d608f2');
 
  // 定义共享环境
 app.configure(function(){
-    app.use(express.methodOverride());
-    
     app.set("views", __dirname + "/views");   
     app.set("view engine", "html");   
-    app.register("html", ejs);   
+    app.engine("html", ejs.renderFile);   
     app.set("view options", {layout: false});
 
     app.use(express.bodyParser());    
     app.use(express.cookieParser('o2o_cookie_secret'));
     app.use(express.session({ secret: "o2o_session_secret" }));
+
+    app.use(express.methodOverride());
     app.use(app.router);//must put router after the above 2lines, otherwise, the session does not work.
+
     app.use(  
       weibo.oauth({
         loginPath: '/login',
@@ -62,6 +61,18 @@ app.configure('production', function(){
     var oneYear = 31557600000;
     app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
     app.use(express.errorHandler());
+});
+
+app.get('/', function(req, res){
+  var user = req.session.oauthUser;
+  console.log(user);
+  if (user) {
+    res.render("index.html", {username: user.screen_name});
+  }
+  else
+  {
+    res.render("index.html", {username: ""});
+  }
 });
 
 app.get('/auth', function (req, res) {
