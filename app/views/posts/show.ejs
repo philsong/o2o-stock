@@ -1,0 +1,18 @@
+<div class="page-header">
+    <h1>Details of post</h1>
+</div>
+
+
+<table class="table table-bordered">
+    <tbody>
+        <tr><th>title</th><td><%= post.title %></td></tr>
+        <tr><th>content</th><td><%= post.content %></td></tr>    
+    </tbody>
+</table>
+
+<div class="well">
+    <%- link_to('<i class="icon-edit icon-white"></i> Edit', path_to.edit_post(post), {class: 'btn btn-primary'}) %>
+    <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.post(post), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
+    or
+    <%- link_to('Back to index', path_to.posts()) %>
+</div>
