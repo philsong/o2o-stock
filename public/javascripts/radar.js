@@ -5,8 +5,6 @@ window.onLoad = new function(){
 	timer = setInterval("checkTime()",10000);
 }
 
-var lastvResultLeft;
-var lastvResultRight;
 var lastvResult;
 var lastvLatest;
 var debug = 0;
@@ -65,64 +63,38 @@ function checkTime(){
 		}
 	};
 	
-	var callback = function(stockTB)
+	var callback = function()
 	{
 		// Hide the instructions	
 		//document.getElementById("instructions").style.display = "none";	
 		
-		if(stockTB == stockTBRight)
-		{
-			lastvResult = lastvResultRight;
-		}
-		else
-		{
-			lastvResult = lastvResultLeft;
-		}
-		
 		if (equal(lastvResult, vRESULT))
 		{
 			console.log("same data,filter");
-			console.log(vRESULT);
+			//console.log(vRESULT);
 			return;
 		}
-		var opanel;
-		if(stockTB == stockTBRight)
-			opanel= document.getElementById("stockTBRight");
-		else
-			opanel= document.getElementById("stockTBLeft");
-		var pchildren = opanel.childNodes;
+		var stockTB;
+		stockTB= document.getElementById("stockTB");
+		var pchildren = stockTB.childNodes;
 		//清空表中的行和列
 		for(var a=0; a<pchildren.length; a++){
-			opanel.removeChild(pchildren[a]);
+			stockTB.removeChild(pchildren[a]);
 		}
 		
-		console.log(vRESULT);
-		
-		if(stockTB == stockTBRight)
-		{
-			lastvResultRight = vRESULT;
-		}
-		else
-		{
-			lastvResultLeft = vRESULT;
-		}
-		
+		console.log(vRESULT);	
+
+		lastvResult = vRESULT;
+
+		var stockheader = "时间~股票代码~股票简称~异动价格~异动类型~异动信息";
+		addRow(stockheader, stockTB);				
 		//stocks
 		stocks = vRESULT.data.split("^");
 		for (index in stocks)
 		{
-			console.log(stocks[index]);
+			//console.log(stocks[index]);
 			addRow(stocks[index], stockTB);
-		}		
-	};
-	var callbackLeft = function()
-	{
-		callback(stockTBLeft);		
-	};	
-	
-	var callbackRight = function()
-	{
-		callback(stockTBRight);	
+		}
 	};
 	
 	console.log(hour +":"+minute+":"+second);
@@ -135,9 +107,9 @@ function checkTime(){
 			{
 				stockTBRight.deleteRow(index);
 			}*/
-			console.log("get all");
-			insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=all&d=09001200', callbackRight)
-			insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=all&d=12001515', callbackLeft)
+			console.log("get all begin");
+			insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=all&d=09001515', callback);
+			console.log("get all end");
 			initflag=1;
 		}
 		
@@ -145,8 +117,8 @@ function checkTime(){
 		//insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=latest&v=vLATEST', callbackLeft)
 	}
 	else{
-		insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=all&d=09001200', callbackRight)
-		insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=all&d=12001515', callbackLeft)
+		console.log("get all");
+		insertJS('http://stock.gtimg.cn/data/index.php?appn=radar&t=all&d=09001515', callback);
 		if (timer)
 			clearTimeout(timer);
 	}
@@ -154,6 +126,7 @@ function checkTime(){
 
 function addRow(stock, stockTB){
 	//添加一行
+	console.log(stock);
 	var newTr = stockTB.insertRow(-1);
 	items = stock.split("~");
 	for (index in items)

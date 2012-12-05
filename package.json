@@ -1,4 +1,4 @@
-{ "name": "blog"
+{ "name": "o2o"
 , "version": "0.0.1"
 , "engines": ["node >= 0.4.0"]
 , "main": "server.js"
