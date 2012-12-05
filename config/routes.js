@@ -1,5 +1,9 @@
 exports.routes = function (map) {
 	map.root('radar#index');
+
+	map.resources('about');
+	map.get('reg', 'about#index#');
+
 	map.resources('radar');
 	map.resources('sel');
 

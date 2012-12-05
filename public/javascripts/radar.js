@@ -1,8 +1,57 @@
 ﻿
 var timer;
+
+$(document).ready(function(){
+  //$("p").click(function(){
+  //$(this).hide();
+  //});
+});
+
 window.onLoad = new function(){
 	checkTime();
 	timer = setInterval("checkTime()",10000);
+}
+
+function checkTimeLine()
+{
+	var displayfun=function()
+	{
+		var shtext=items[1] + items[2] + "(" + items[3] + ')' +"昨收" +items[4]+"今开"+items[5];
+		$("p#stockLineSH").text(shtext);
+		$("p#stockLineSH").css("color","red");
+	}
+
+	var callbackLine = function()
+	{
+		console.log("dffxxxdd");
+		//var stockLine= document.getElementById("stockLine");
+		items_sh = v_sh000001.split("~");
+		items = items_sh;
+		var textcontent=items[1] + items[2] + "(" + items[3] + " " + items[31]+ ' '+ items[32] + '%)' 
+			+" 昨收" +items[4]+" 今开"+items[5]  +" 最高" +items[33]+" 最低"+items[34]+" 振幅"+items[43] +"%";
+		$("p#stockLineSH").text(textcontent);
+		$("p#stockLineSH").css("color","red");
+
+		items_sz = v_sz399001.split("~");
+		items = items_sz;
+		var textcontent=items[1] + items[2] + "(" + items[3] + " " + items[31]+ ' '+ items[32] + '%)' 
+			+" 昨收" +items[4]+" 今开"+items[5]  +" 最高" +items[33]+" 最低"+items[34]+" 振幅"+items[43] +"%";
+		$("p#stockLineSZ").text(textcontent);
+		$("p#stockLineSZ").css("color","red");
+
+		//stockLine.innerHTML= "<font color='green'>" +  v_sh000001+ "</font>";;
+		
+		for (index in items_sh)
+		{
+			//添加列
+			console.log(index+":"+items_sh[index]);
+
+		}
+		console.log(v_sh000001);
+		console.log(v_sz399001);	
+	}
+
+	insertJS('http://qt.gtimg.cn/q=sh000001,sz399001', callbackLine);
 }
 
 var lastvResult;
@@ -16,53 +65,6 @@ function checkTime(){
 	var second = myDate.getSeconds();
 	var stocks = [];
 	
-
-	
-	function callbackold(stockTB)
-	{
-		if(typeof vRESULT == 'undefined')
-		{
-			vRESULT=vLATEST;
-		}
-		if (equal(lastvResult, vRESULT))
-		{
-			console.log("same data,filter");
-			console.log(vRESULT);
-			return;
-		}
-
-		console.log(vRESULT);
-		lastvResult=vRESULT;
-		//stocks
-		stocks = vRESULT.data.split("^");
-		for (index in stocks)
-		{
-			console.log(stocks[index]);
-			addRow(stocks[index], stockTB);
-		}		
-	}
-	
-	var callbackLatest = function()
-	{
-		//callback(stockTBLeft);		
-		if (equal(lastvLatest, vLATEST))
-		{
-			console.log("same data,filter");
-			console.log(vLATEST);
-			return;
-		}
-
-		console.log(vLATEST);
-		lastvLatest=vLATEST;
-		//stocks
-		stocks = vLATEST.data.split("^");
-		for (index in stocks)
-		{
-			console.log(stocks[index]);
-			addRow(stocks[index], stockTBLeft);
-		}
-	};
-	
 	var callback = function()
 	{
 		// Hide the instructions	
@@ -74,8 +76,8 @@ function checkTime(){
 			//console.log(vRESULT);
 			return;
 		}
-		var stockTB;
-		stockTB= document.getElementById("stockTB");
+		//var stockTB = $("div#stockTB");
+		var stockTB= document.getElementById("stockTB");
 		var pchildren = stockTB.childNodes;
 		//清空表中的行和列
 		for(var a=0; a<pchildren.length; a++){
@@ -98,7 +100,10 @@ function checkTime(){
 	};
 	
 	console.log(hour +":"+minute+":"+second);
-	if(debug || ( (hour > 9 && minute >=24) && hour <15) || (hour == 15 && minute <= 1)){  
+
+	checkTimeLine();
+
+	if(debug || ( (hour == 9 && minute >=24) || hour > 9 && hour <15) || (hour == 15 && minute <= 1)){  
 		console.log(initflag);
 		//if(initflag == 0)
 		{
@@ -126,7 +131,7 @@ function checkTime(){
 
 function addRow(stock, stockTB){
 	//添加一行
-	console.log(stock);
+	//console.log(stock);
 	var newTr = stockTB.insertRow(-1);
 	items = stock.split("~");
 	for (index in items)
