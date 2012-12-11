@@ -1,0 +1,9 @@
+<% formFor(user, {action: path_to.users, method: 'POST', id: "user-form", class: 'form-horizontal'}, function (form) { %>
+    <%- partial('users/form.ejs', {locals: {form: form, user: user}}) %>
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> 注册', {class: 'btn btn-primary'}) %> 
+        <%- linkTo('取消', path_to.radar, {class: 'btn'}) %>
+    </div>
+<% });%>
+
+<li><a href="/login?type=weibo">Weibo登录</a></li>

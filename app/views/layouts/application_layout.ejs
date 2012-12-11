@@ -1,21 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title><%= title %></title>
-        <%- stylesheet_link_tag('bootstrap', 'style', 'bootstrap-responsive') %>
-        <%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'bootstrap', 'rails', 'application') %>
-        <%- csrf_meta_tag() %>
-    </head>
-    <body>
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#">Project name</a>
-                </div>
-            </div>
-        </div>
-    
-        <div class="container">
+﻿<!DOCTYPE html>
+<html lang="cn">
+	<head>          
+	<title>送3票<%= title%></title>                                                      
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Keywords" content="股票大单,股票主力,股票追踪,涨停板,敢死队,自动化交易,程序化交易"/>
+	<meta name="Description" content="股票排行榜,个股大资金动向数据；提供5日,10日股票大单买入卖出分析排行榜,以及股票大单净买入历史趋势.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="QQ:78623269">
+	<meta property="wb:webmaster" content="676560d9006db652" />
+	<!-- 0.0.1 init on 2012,11,14 by QQ:78623269-->    
+	<!-- 0.0.8 add posts/users module on 2012,12,11-->      
+	<!-- todo: to do lots of thing for fun!-->
+		
+	<!-- Le styles -->
+	<%- stylesheet_link_tag('bootstrap.min', 'bootstrap-responsive.min') %>
+
+	<style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 690px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+    </style>
+
+	
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->	
+
+    <%- csrf_meta_tag() %>									  
+	</head>                                                                 
+	<body>       
+		<div class="container-narrow">
+			<div class="masthead">
+				<ul class="nav nav-pills pull-right">
+					<li class="active"><a href="/">首页</a></li>
+					<li><a href="/radar">市场雷达</a></li>
+					<li><a href="/sel">智能选股</a></li>
+					<li><a href="/about">关于</a></li>
+					<li><a href="/reg">注册</a></li>
+				</ul>
+				<h3 class="muted">送你三个票</h3>
+			</div>
+			
+			<hr>
+      
             <% var flash = request.flash('info').pop(); if (flash) { %>
                 <div class="alert alert-info">
                     <a class="close" data-dismiss="alert">×</a>
@@ -29,13 +67,26 @@
                     <%- flash %>
                 </div>
             <% }; %>
-            
-            <%- body %>
-            
-            <hr />
-            <footer>
-                <p>&copy; Company 2012</p>
-            </footer>
-        </div>
-    </body>
+
+			<%- body %> 
+
+			<hr>
+			<footer>
+				<i>song3p.com</i> 送你三个票
+				<a  target="_blank" class="tzine" href="http://www.weibo.com/bocaicfa">@ <i>Phil<b>Song 菠菜</b></i></a>
+				<script type="text/javascript">
+					var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+					document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F99bc2778a4b65519ebdbab9bece1519b' type='text/javascript'%3E%3C/script%3E"));
+				</script>
+			</footer>
+		</div> <!-- /container -->  
+
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<!--http://code.jquery.com/jquery-1.8.3.js-->	
+
+    	<%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', 'bootstrap.min', 'rails', 'application') %>
+	</body>                                                                  
 </html>

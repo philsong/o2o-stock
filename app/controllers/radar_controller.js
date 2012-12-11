@@ -10,6 +10,7 @@ action('index', function () {
 		this.username = '';
 	}
 
+	this.title="市场雷达";
     render();
 });
 

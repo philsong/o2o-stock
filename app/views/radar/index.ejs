@@ -1,17 +1,31 @@
-﻿
-<div>
-<p>书山有路勤为径，“股“海无涯苦作舟。</p>
-<p>技术宅日用炒股自动化武器，不断完善中. 程序自动化交易热情交流QQ群：<a href="#">279929931</a></p>
+﻿<div>
 <p>实时追踪股市中大资金的动向，大资金流入流出的明细，可以从中挖掘今日股市热点.</p>
 <p><i>每个交易日每隔10秒更新一次！买卖动向如下:</i></p>	
+
+<div id="container" ></div>
 </div>
 
 <p id = "stockLineSH"></p>
 <p id = "stockLineSZ"></p>
-<div class="row">
 
+				<!-- JiaThis Button BEGIN -->
+				<div class="jiathis_style">
+					<a class="jiathis_button_qzone"></a>
+					<a class="jiathis_button_tsina"></a>
+					<a class="jiathis_button_tqq"></a>
+					<a class="jiathis_button_renren"></a>
+					<a class="jiathis_button_kaixin001"></a>
+					<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+					<a class="jiathis_counter_style"></a>
+				</div>
+				<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1352960266495486" charset="utf-8"></script>
+				<!-- JiaThis Button END -->
+
+<div class="row">
 	<div class="span6"> 
 		<table id = "stockTB" class="table table-striped table-bordered table-condensed">
 		</table>
 	</div> 
 </div>	
+
+<%- javascript_include_tag('utils', 'radar','Highcharts-2.3.3/js/highcharts', 'Highstock-1.2.4/js/highstock') %>

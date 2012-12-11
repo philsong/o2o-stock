@@ -1,15 +1,38 @@
 ﻿
 var timer;
 
-$(document).ready(function(){
-  //$("p").click(function(){
-  //$(this).hide();
-  //});
-});
-
 window.onLoad = new function(){
+	//DrawStocks();
 	checkTime();
 	timer = setInterval("checkTime()",10000);
+}
+
+function DrawStocks()
+{
+	$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function(data) {
+		// Create the chart
+		window.chart = new Highcharts.StockChart({
+			chart : {
+				renderTo : 'container'
+			},
+
+			rangeSelector : {
+				selected : 1
+			},
+
+			title : {
+				text : 'AAPL Stock Price'
+			},
+			
+			series : [{
+				name : 'AAPL',
+				data : data,
+				tooltip: {
+					valueDecimals: 2
+				}
+			}]
+		});
+	});
 }
 
 function checkTimeLine()
@@ -23,30 +46,36 @@ function checkTimeLine()
 
 	var callbackLine = function()
 	{
-		console.log("dffxxxdd");
+		console.log("callbackLine");
 		//var stockLine= document.getElementById("stockLine");
 		items_sh = v_sh000001.split("~");
 		items = items_sh;
 		var textcontent=items[1] + items[2] + "(" + items[3] + " " + items[31]+ ' '+ items[32] + '%)' 
 			+" 昨收" +items[4]+" 今开"+items[5]  +" 最高" +items[33]+" 最低"+items[34]+" 振幅"+items[43] +"%";
 		$("p#stockLineSH").text(textcontent);
-		$("p#stockLineSH").css("color","red");
+		console.log(items[32]);
+		console.log(items[32][0]);
+		if (items[32][0] == '-' ) 
+			$("p#stockLineSH").css("color","green");
+		else
+			$("p#stockLineSH").css("color","red");
 
 		items_sz = v_sz399001.split("~");
 		items = items_sz;
 		var textcontent=items[1] + items[2] + "(" + items[3] + " " + items[31]+ ' '+ items[32] + '%)' 
 			+" 昨收" +items[4]+" 今开"+items[5]  +" 最高" +items[33]+" 最低"+items[34]+" 振幅"+items[43] +"%";
 		$("p#stockLineSZ").text(textcontent);
-		$("p#stockLineSZ").css("color","red");
+		if (items[32][0] == '-' ) 
+			$("p#stockLineSZ").css("color","green");
+		else
+			$("p#stockLineSZ").css("color","red");
 
-		//stockLine.innerHTML= "<font color='green'>" +  v_sh000001+ "</font>";;
 		
-		for (index in items_sh)
-		{
+		//for (index in items_sh)
+		//{
 			//添加列
-			console.log(index+":"+items_sh[index]);
-
-		}
+			//console.log(index+":"+items_sh[index]);
+		//}
 		console.log(v_sh000001);
 		console.log(v_sz399001);	
 	}
@@ -139,7 +168,11 @@ function addRow(stock, stockTB){
 		//添加列
 		var newTd = newTr.insertCell(-1);
 		
-		if(items[4] == "大买单" || items[4] == "封涨停板" || items[4] == "快速上涨") 
+		if(items[4] == "异动类型")
+		{
+			newTd.innerHTML= "<font color='blue'>" + items[index] + "</font>";
+		}
+		else if(items[4] == "大买单" || items[4] == "封涨停板" || items[4] == "快速上涨") 
 		{
 			newTd.innerHTML= "<font color='red'>" + items[index] + "</font>";
 		}

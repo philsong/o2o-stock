@@ -10,5 +10,6 @@ action('index', function () {
 		this.username = '';
 	}
 
+	this.title="智能选股";
     render();
 });

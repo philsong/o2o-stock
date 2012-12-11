@@ -1,0 +1,10 @@
+<div class="page-header"><h1>Edit user</h1></div>
+
+<% formFor(user, {action: path_to.user(user), method: 'PUT', id: "user-form", class: 'form-horizontal'}, function (form) { %>
+    <%- partial('users/form.ejs', {locals: {form: form, user: user}}) %>
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> Update user', {class: 'btn btn-primary'}) %> or
+        <%- linkTo('Cancel', path_to.user(user), {class: 'btn'}) %>
+    </div>
+<% });%>
+
