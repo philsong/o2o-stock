@@ -1,9 +1,13 @@
 exports.routes = function (map) {
 	//map.root('radar#index');
-    map.root('about#index');
+    map.get('stock','stock#index');
+    map.get('stock/query','stock#query');
+    map.get('stock/search','stock#search');
+
+    map.root('stock#search');
 
 	map.resources('about');
-	//map.get('reg', 'users#new');
+	map.get('reg', 'users#new');
 
 	map.resources('radar');
 	map.resources('sel');

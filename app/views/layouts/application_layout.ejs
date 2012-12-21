@@ -31,7 +31,7 @@
       }
     </style>
 
-	
+	<%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', 'bootstrap.min', 'rails', 'application') %>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -45,7 +45,8 @@
 				<ul class="nav nav-pills pull-right">
 					<li class="active"><a href="/">首页</a></li>
 					<li><a href="/radar">市场雷达</a></li>
-					<li><a href="/sel">智能选股</a></li>
+					<li><a href="/stock">智能选股</a></li>
+					<li><a href="/stock/search">股票搜索</a></li>
 					<li><a href="/about">关于</a></li>
 					<li><a href="/reg">注册</a></li>
 				</ul>
@@ -87,6 +88,6 @@
 		<!-- Placed at the end of the document so the pages load faster -->
 		<!--http://code.jquery.com/jquery-1.8.3.js-->	
 
-    	<%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', 'bootstrap.min', 'rails', 'application') %>
+
 	</body>                                                                  
 </html>

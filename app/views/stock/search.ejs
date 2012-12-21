@@ -1,0 +1,52 @@
+<script>
+$('.nav li')[1].className = "active";
+</script>
+<div>
+<div class="row-fluid">
+<div class="span4">
+
+	<form class="navbar-search">
+		<input id="stocknum" type="text" class="search-query" placeholder="股票搜索 例如:600111"/>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+
+</div>
+
+<div class="span8 pull-right"></div>
+</div>
+</div>
+<script>
+//var nowstock = "";
+$('.navbar-search')[0].onsubmit = function(){
+	var stocknum = $('#stocknum').val();
+	console.log(stocknum);
+	$.ajax({url:"/stock/query?"+stocknum}).done(function(data){
+		if(data == "wrong")
+			return;
+		console.log(data);
+		window.nowstock = stocknum;
+		var arr = data.split(",");
+		console.log(arr);
+		showOneStock(arr);
+	})
+	console.log("submit");
+	return false;
+}
+
+function showOneStock(arr)
+{
+	var html = '';
+	html += '<button class="btn btn-info">' + arr[0] + '</button>';
+	html += '<button class="btn primary pull-right">当前价格'+arr[3] + '</button>';
+	html += '<table class="table table-striped">'
+	html += '<tr><td>今日开盘</td><td>昨日收盘</td><td>今日最高</td><td>今日最低</td></tr>';
+	html += '<tr><td>'+arr[1]+'</td><td>'+arr[2]+'</td><td>'+arr[4]+'</td><td>'+arr[5]+'</td></tr>'
+	html += '<tr><td>买一申请</td><td>买一报价</td><td>买二申请</td><td>买二报价</td></tr>';
+	html += '<tr><td>'+arr[10]+'</td><td>'+arr[11]+'</td><td>'+arr[12]+'</td><td>'+arr[13]+'</td></tr>';
+	html += '<tr><td>卖一申请</td><td>卖一报价</td><td>更新日期</td><td>更新日期</td></tr>';
+	html += '<tr><td>'+arr[20]+'</td><td>'+arr[21]+'</td><td>'+arr[30]+'</td><td>'+arr[31]+'</td></tr>';
+	html += '</table>';
+	html += '';
+	$('.span8').html(html);
+}
+</script>

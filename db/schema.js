@@ -34,8 +34,8 @@ var User = describe('User', function () {
 });
 */
 
-var User = describe('User', function () {
+var User = define('User', function () {
     property('name', String);
     property('pwd', String);
-    property('createdAt', Date);
+    property('createdAt', String);
 });

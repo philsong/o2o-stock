@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
+
 var app = module.exports = require('railway').createServer();
 //console.log(process.env);
-console.log(process.env.VCAP_SERVICES);
+//console.log(process.env.VCAP_SERVICES);
+
 if (!module.parent) {
 	var port = process.env.PORT || 3000
 	app.listen(port);

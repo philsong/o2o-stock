@@ -1,0 +1,38 @@
+<div class="hero-unit">
+
+<p><%- link_to('<i class="icon-plus icon-white"></i> 超智能选股', "/sel", {class: 'btn btn-primary'}) %></>
+
+<table class="table">
+<tr>
+	<td>股票名字</td>
+	<td>股票代码</td>
+	<td>当前价格</td>
+	<td>今日开盘价</td>
+	<td>昨日收盘价</td>
+</tr>
+</table>
+
+</div>
+<script>
+var url = "/stock/query?all";
+$(function(){
+	$.ajax({url:url}).done(function(data){
+		var stockhtml = '';
+		var stockjson = JSON.parse(data);
+		for(var key in stockjson){
+			var _ = stockjson[key];
+			if(stockjson[key].now > stockjson[key].yesday)//red
+			{
+				stockhtml += '<tr class="error"><td>'+_.id+'</td><td>'+key+'</td><td>'+_.now+'</td><td>'+_.today+'</td><td>'+_.yesday+'</td></tr>';
+			}
+			
+			else 
+			{
+				stockhtml += '<tr class="success"><td>'+_.id+'</td><td>'+key+'</td><td>'+_.now+'</td><td>'+_.today+'</td><td>'+_.yesday+'</td></tr>';				
+			}
+		}
+		
+		$('.table').append(stockhtml);
+	});
+});
+</script>

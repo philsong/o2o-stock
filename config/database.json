@@ -1,8 +1,12 @@
-{ "development":
+
+
+{
+"test":
   { "driver":   "memory"
   }
-, "test":
-  { "driver":   "memory"
+,"development":
+  { "driver":   "mongodb"
+  , "url":      "mongodb://localhost/o2otest"
   }
 , "production":
   { "driver":   "memory"

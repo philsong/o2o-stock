@@ -17,6 +17,7 @@ action(function create() {
                 title: 'New user'
             });
         } else {
+            console.log(user);
             flash('info', 'User created');
             redirect(path_to.users());
             //redirect('/#'); // root redirection
@@ -27,6 +28,17 @@ action(function create() {
 action(function index() {
     this.title = 'Users index';
     User.all(function (err, users) {
+
+        console.log(users);
+/*
+        console.log(users[0].id);
+        User.find(users[0].id, function (err, user) {
+            console.log(err);
+            console.log(user);
+            if (err || !user) {
+            }
+        });
+*/
         render({
             users: users
         });
@@ -68,7 +80,10 @@ action(function destroy() {
 });
 
 function loadUser() {
+    console.log(params.id);
     User.find(params.id, function (err, user) {
+        console.log(err);
+        console.log(user);
         if (err || !user) {
             redirect(path_to.users());
         } else {
