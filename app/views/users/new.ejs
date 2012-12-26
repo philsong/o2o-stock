@@ -1,3 +1,6 @@
+<script>
+$('.nav li')[5].className = "active";
+</script>
 <% formFor(user, {action: path_to.users, method: 'POST', id: "user-form", class: 'form-horizontal'}, function (form) { %>
     <%- partial('users/form.ejs', {locals: {form: form, user: user}}) %>
     <div class="form-actions">

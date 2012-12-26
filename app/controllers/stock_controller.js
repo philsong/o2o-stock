@@ -1,5 +1,7 @@
 load('application');
 
+var nodegrass = require('nodegrass');
+
 action('index',function(){
 	render({title:"stock index"});
 });
@@ -12,12 +14,13 @@ action('query',function(){
 	console.log("data2");
 	console.log(req.url);
 	var stock = req.url.split("?")[1];
-	var nodegrass = require('nodegrass');
+
 	var urlRoot = "http://hq.sinajs.cn/list=";
 
 	magicStockUrl = "http://smartstock.gtimg.cn/get.php?_func=filter&_page=1&_pagesize=30&hs_hsl=0.05&hs_zf=0.03&hs_lb=1&_default=1&_du_r_t=0.1939136243890971";
 	if(stock == "all"){
-		nodegrass.get(magicStockUrl,function(data){
+		nodegrass.get(magicStockUrl, function(data,status,headers)
+		{
 			//console.log(data);
 			eval(data);
 			var stockList = _smartstock['data'];
@@ -27,7 +30,8 @@ action('query',function(){
 			}
 			var nameStr = nameList.join(',');
 			var bigurl = urlRoot + nameStr;
-			nodegrass.get(bigurl,function(mydata){
+			nodegrass.get(bigurl,function(mydata,status,headers)
+			{
 				var stockjson = {};
 				var _arr = mydata.split(";");
 				for(var i=0; i<_arr.length-1; i++){
@@ -55,6 +59,7 @@ action('query',function(){
 		});
 		return;
 	}
+
 	stock = parseInt(stock);
 	var url = urlRoot + "sh" + stock;
 	nodegrass.get(url,function(data){
